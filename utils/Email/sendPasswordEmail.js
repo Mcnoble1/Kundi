@@ -1,5 +1,6 @@
 const transporter = require('./config');
 require("dotenv").config();
+const logger = require('../../logger/logger');
 
 
 const sendPasswordEmail = ( email, password,res ) => {
@@ -12,13 +13,13 @@ const sendPasswordEmail = ( email, password,res ) => {
   
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      console.log(error);
+      logger.error(error);
       return res.status(400).send({
         success: false,
         message: "Email not sent"
     })
     }else{
-        console.log('Email sent: ' + info);
+        logger.info('Email sent: ' + info);
         return res.status(200).send({
             success: true,
             message: "Email sent"

@@ -2,6 +2,7 @@ const categoryModel = require('../../models/category.model');
 const serviceModel = require('../../models/service.model');
 const workerModel = require('../../models/worker.model');
 const utils = require('../../utils/index')  
+const logger = require('../../logger/logger')
 
 
 const createCategory = async (req, res) => {
@@ -37,7 +38,7 @@ const createCategory = async (req, res) => {
             category
         })  
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Category not created"
@@ -54,7 +55,7 @@ const getCategories = async (req, res) => {
             category
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Categories not fetched"
@@ -72,7 +73,7 @@ const getCategory = async (req, res) => {
             category 
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Category not fetched"
@@ -116,7 +117,7 @@ const updateCategory = async (req, res) => {
             category 
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Category not updated"
@@ -150,7 +151,7 @@ const deleteCategory = async (req, res) => {
             category
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Category not deleted"

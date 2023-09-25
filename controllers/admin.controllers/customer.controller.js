@@ -1,4 +1,5 @@
 const userModel = require('../../models/user.model');
+const logger = require('../../logger/logger');
 
 const getCustomers = async (req, res) => {
     try {
@@ -10,7 +11,7 @@ const getCustomers = async (req, res) => {
         })
 
     } catch (err) {
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Customers not found"
@@ -29,7 +30,7 @@ const getCustomer = async (req, res) => {
         })
 
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Customer not found"
@@ -63,7 +64,7 @@ const updateCustomer = async (req, res) => {
 
 
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Customer not found"
@@ -82,7 +83,7 @@ const deleteCustomer = async (req, res) => {
         })
 
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Customer not deleted"

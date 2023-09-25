@@ -1,4 +1,5 @@
 const transportationModel = require('../../models/transportation.model')
+const logger = require('../../logger/logger')
 
 
 
@@ -12,7 +13,7 @@ const getTransportations = async (req, res) => {
         })
 
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Transportations not found"
@@ -30,7 +31,7 @@ const getTransportation = async (req, res) => {
             transportation 
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Transportation not found"
@@ -49,7 +50,7 @@ const filterTransportations = async (req, res) => {
             transportations
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Transportations not found"
@@ -69,7 +70,7 @@ const search = async (req, res) => {
 
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Something went wrong"

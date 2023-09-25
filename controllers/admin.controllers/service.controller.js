@@ -1,7 +1,8 @@
 const serviceModel = require('../../models/service.model');
 const categoryModel = require('../../models/category.model');
 const workerModel = require('../../models/worker.model');
-const utils = require('../../utils/index')
+const logger = require('../../logger/logger')
+
 
 const createService = async (req, res) => { 
     try{
@@ -21,7 +22,7 @@ const createService = async (req, res) => {
             service
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Service not created"
@@ -38,7 +39,7 @@ const getServices = async (req, res) => {
             service
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Services not fetched"
@@ -56,7 +57,7 @@ const getService = async (req, res) => {
             service 
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Service not fetched"
@@ -103,7 +104,7 @@ const updateService = async (req, res) => {
             service 
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Service not updated"
@@ -143,7 +144,7 @@ const deleteService = async (req, res) => {
             service
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Service not deleted"

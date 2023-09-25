@@ -6,6 +6,7 @@ const workerModel = require('../../models/worker.model')
 const userModel = require('../../models/user.model')
 const transportationModel = require('../../models/transportation.model')
 const utils = require('../../utils/index')
+const logger = require('../../logger/logger')
 require('dotenv').config()
 
 const adminSignup = async (req, res) => {
@@ -30,7 +31,7 @@ const adminSignup = async (req, res) => {
         })
 
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Admin not created"
@@ -148,7 +149,7 @@ const forgottenPassword = async (req, res) => {
         })
 
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Something went wrong"
@@ -167,7 +168,7 @@ const search = async (req, res) => {
         })
 
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Something went wrong"

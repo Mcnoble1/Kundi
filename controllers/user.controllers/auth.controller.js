@@ -3,6 +3,7 @@ const userModel = require('../../models/user.model')
 const utils = require('../../utils/index')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
+const logger = require('../../logger/logger')
 
 const userSignup = async (req, res) => {
     try {
@@ -39,7 +40,7 @@ const userSignup = async (req, res) => {
             message: "User created successfully"
         })
     } catch (err) {
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "User not created"
@@ -73,7 +74,7 @@ const resendUserVerificationOtp = async (req, res) => {
             message: "OTP sent successfully"
         })
     } catch (err) {
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "OTP not sent"
@@ -124,7 +125,7 @@ const userVerify = async (req, res) => {
             })
         }
     }catch (err) {
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "OTP not verified"
@@ -158,7 +159,7 @@ const userLogin = async (req, res) => {
             message: "OTP sent successfully"
         })
     } catch (err) {
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "OTP not sent"
@@ -225,7 +226,7 @@ const verifyOtp = async (req, res) => {
             })
         }
     }catch (err) {  
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "OTP not verified"

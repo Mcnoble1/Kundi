@@ -1,5 +1,5 @@
-const userModel = require('../../models/user.model');
 const feedbackModel = require('../../models/feedback.model');   
+const logger = require('../../logger/logger');
 
 const getFeedbacks = async (req, res) => {
     try{
@@ -9,7 +9,7 @@ const getFeedbacks = async (req, res) => {
             feedback,
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Feedback not found"
@@ -25,7 +25,7 @@ const getFeedback = async (req, res) => {
             feedback,
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Feedback not found"

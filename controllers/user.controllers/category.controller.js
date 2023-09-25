@@ -1,4 +1,5 @@
 const categoryModel = require('../../models/category.model')
+const logger = require('../../logger/logger')
 
 const getCategories = async (req, res) => {
     try{
@@ -9,7 +10,7 @@ const getCategories = async (req, res) => {
             category
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Categories not fetched"
@@ -27,7 +28,7 @@ const getCategory = async (req, res) => {
             category 
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Category not fetched"

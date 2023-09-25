@@ -1,5 +1,6 @@
 const userModel = require('../../models/user.model');
-const feedbackModel = require('../../models/feedback.model');   
+const feedbackModel = require('../../models/feedback.model');  
+const logger = require('../../logger/logger')     
 
 const createFeedback = async (req, res) => {
     try{
@@ -22,7 +23,7 @@ const createFeedback = async (req, res) => {
             feedback
         })  
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Feedback not created"

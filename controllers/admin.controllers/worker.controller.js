@@ -2,6 +2,7 @@ const workerModel = require('../../models/worker.model');
 const serviceModel = require('../../models/service.model');
 const categoryModel = require('../../models/category.model');
 const utils = require('../../utils/index')
+const logger = require('../../logger/logger')
 
 
 
@@ -51,7 +52,7 @@ const createWorker = async (req, res) => {
             worker
         })  
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Worker not created"
@@ -68,7 +69,7 @@ const getWorkers = async (req, res) => {
             workers 
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Workers not fetched"
@@ -87,7 +88,7 @@ const getWorker = async (req, res) => {
             worker 
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Worker not fetched"
@@ -160,7 +161,7 @@ const updateWorker = async (req, res) => {
             worker 
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Worker not updated"
@@ -190,7 +191,7 @@ const deleteWorker = async (req, res) => {
             worker
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Worker not deleted"

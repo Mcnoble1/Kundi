@@ -1,5 +1,6 @@
 const transportationModel = require('../../models/transportation.model')
 const utils = require('../../utils/index')
+const logger = require('../../logger/logger')
 
 const createTransportation = async (req, res) => {
     const image = req.file? req.file.path : null;
@@ -30,7 +31,7 @@ const createTransportation = async (req, res) => {
             transportation
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Transportation not created"
@@ -47,7 +48,7 @@ const getTransportations = async (req, res) => {
             transportation
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Transportations not fetched"
@@ -65,7 +66,7 @@ const getTransportation = async (req, res) => {
             transportation 
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Transportation not fetched"
@@ -110,7 +111,7 @@ const updateTransportation = async (req, res) => {
             transportation
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Transportation not updated"
@@ -132,7 +133,7 @@ const deleteTransportation = async (req, res) => {
 
 
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Transportation not deleted"

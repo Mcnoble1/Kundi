@@ -1,6 +1,7 @@
 const workerModel = require('../../models/worker.model');
 const categoryModel = require('../../models/category.model');
 const serviceModel = require('../../models/service.model');
+const logger = require('../../logger/logger')
 
 const getWorkers = async (req, res) => {
     try{
@@ -12,7 +13,7 @@ const getWorkers = async (req, res) => {
         })
 
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Workers not found"
@@ -30,7 +31,7 @@ const filterWorkers = async (req, res) => {
             workers
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Workers not found"
@@ -48,7 +49,7 @@ const getWorker = async (req, res) => {
             worker 
         })
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Worker not found"
@@ -67,7 +68,7 @@ const search = async (req, res) => {
         })
 
     }catch(err){
-        console.log(err)
+        logger.error(err.message)
         return res.status(400).send({
             success: false,
             message: "Something went wrong"

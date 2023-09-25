@@ -15,6 +15,7 @@ const workerRoute = require('./routes/user.routes/worker.route')
 const categoryRoute = require('./routes/user.routes/category.route')
 const transportationRoute = require('./routes/user.routes/transportation.route')
 
+const logger = require('./logger/logger')
 require('./db.js').connectToMongoDB()
 require("./authentication/auth.js")
 require("dotenv").config()
@@ -36,7 +37,7 @@ app.use(express.urlencoded({extended: true}))
 
 
 app.get('/', (req, res) => {
-    res.status(200).send("Welcome to Home Page")
+    res.status(200).json("Welcome to Home Page")
     console.log("Welcome to Home Page")
     
 
@@ -64,5 +65,5 @@ app.use('/api/user/transportation', transportationRoute)
 PORT = process.env.PORT
 
 app.listen(PORT,()=>{
-    console.log(`Server is running on PORT ${PORT}`)
+    logger.info(`Server is running on PORT ${PORT}`)
 })

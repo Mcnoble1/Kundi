@@ -1,7 +1,5 @@
 const transportationModel = require('../../models/transportation.model')
-const { search } = require('../../routes/admin.routes/auth.route')
-const utils = require('../../utils/index')
-require('dotenv').config()
+
 
 
 const getTransportations = async (req, res) => {
@@ -60,7 +58,7 @@ const filterTransportations = async (req, res) => {
 
 }
 
-search = async (req, res) => {
+const search = async (req, res) => {
     try{
         const {search} = req.body;
         const result = await performSearch(search)

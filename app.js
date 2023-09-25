@@ -36,8 +36,9 @@ app.use(express.urlencoded({extended: true}))
 
 
 app.get('/', (req, res) => {
-    res.send("Welcome to Home Page")
+    res.status(200).send("Welcome to Home Page")
     console.log("Welcome to Home Page")
+    
 
 })
 

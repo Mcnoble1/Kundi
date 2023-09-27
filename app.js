@@ -1,4 +1,5 @@
 const express = require("express")
+const cors = require("cors")
 const rateLimit = require('express-rate-limit')
 const helmet = require('helmet')
 const adminRouter = require('./routes/admin.routes/auth.route')
@@ -30,6 +31,7 @@ const limiter = rateLimit({
 })
 app.use(limiter)
 app.use(helmet());
+app.use(cors())
 
 
 app.use(express.json())

@@ -5,6 +5,14 @@ const logger = require('../../logger/logger')
 const createFeedback = async (req, res) => {
     try{
         const {title, description,worker} = req.body;
+
+        if(!title || !worker){
+            return res.status(400).send({
+                success: false,
+                message: "Please fill all the fields"
+            })
+        }
+
         const user = req.user._id
         const feedback = await feedbackModel.create({
             title,

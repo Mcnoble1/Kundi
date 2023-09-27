@@ -7,6 +7,14 @@ const logger = require('../../logger/logger')
 const createService = async (req, res) => { 
     try{
         const {name, category} = req.body;
+
+        if(!name || !category){
+            return res.status(400).send({
+                success: false,
+                message: "Please provide all details"
+            })
+        }
+        
         const service = await serviceModel.create({
             name,
             category

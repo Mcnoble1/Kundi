@@ -11,6 +11,13 @@ const createWorker = async (req, res) => {
         const image = req.file? req.file.path : null;
         const {name, phone,whatsapp, languages,address, area, block,age,gender,nationality,familyInKuwait,petFriendly,lengthOfService,category,service } = req.body;
         
+        if (!name || !phone || !whatsapp || !languages || !address || !area || !block || !age || !gender || !nationality || !familyInKuwait || !petFriendly || !lengthOfService || !category || !service) {
+            return res.status(400).send({
+                success: false,
+                message: "Please enter all details"
+            });
+        }
+        
         
         
         const worker = await workerModel.create({
@@ -101,8 +108,15 @@ const updateWorker = async (req, res) => {
     try{
         const {id} = req.params
         const {name, phone,whatsapp, languages,address, area, block,age,gender,nationality,familyInKuwait,petFriendly,lengthOfService,category,service } = req.body;
-        
         const image = req.file? req.file.path : null;
+
+        if (!name || !phone || !whatsapp || !languages || !address || !area || !block || !age || !gender || !nationality || !familyInKuwait || !petFriendly || !lengthOfService || !category || !service) {
+            return res.status(400).send({
+                success: false,
+                message: "Please enter all details"
+            });
+        }
+        
         const worker = await workerModel.findById(id)
         if(!worker){
             return res.status(400).send({

@@ -178,6 +178,8 @@ const search = async (req, res) => {
 
 
 const performSearch = async (search)=>{
+
+    let result = [];
     const result1 = await categoryModel.find(
             { name:  { $regex: search, $options: 'i'}  },
         ).populate('workers').populate('service')
@@ -234,9 +236,18 @@ const performSearch = async (search)=>{
 
     })
 
-    return {
-        ...result1,...result2,...result3,...result4,...result5
-    }
+    result.push(result1)
+    result.push(result2)
+    result.push(result3)
+    result.push(result4)
+    result.push(result5)
+
+    return result;
+    
+
+    // return {
+    //     ...result1,...result2,...result3,...result4,...result5
+    // }
 
 }
 

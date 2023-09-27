@@ -79,9 +79,7 @@ const search = async (req, res) => {
 
 
 const performSearch = async (search) => {
-    let result1 = [];
-    let result2 = [];
-    let result3 = [];
+    let result = [];
   
     const category = await categoryModel
       .find({ name: { $regex: search, $options: 'i' } })
@@ -90,7 +88,7 @@ const performSearch = async (search) => {
   
     if (category) {
       category.forEach((cat) => {
-        result1.push(cat.worker);
+        result.push(cat.worker);
       });
     }
   
@@ -108,7 +106,7 @@ const performSearch = async (search) => {
     .populate('service');
   
     if (worker) {
-      result2 = worker;
+      result.push(worker);
     }
   
     const service = await serviceModel
@@ -118,15 +116,11 @@ const performSearch = async (search) => {
   
     if (service) {
       service.forEach((serv) => {
-        result3.push(serv.worker);
+        result.push(serv.worker);
       });
     }
   
-    return {
-      result1,
-      result2,
-      result3,
-    };
+    return result;
   };
   
 

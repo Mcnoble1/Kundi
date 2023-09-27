@@ -8,3 +8,82 @@
 {"level":"info","message":"Connected to MongoDB successfully"}
 {"level":"info","message":"Server is running on PORT 3000"}
 {"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"error","message":"Transportation validation failed: driver: Path `driver` is required."}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"error","message":"Worker validation failed: age: Path `age` is required."}
+{"level":"error","message":"Cast to ObjectId failed for value \"\" (type string) at path \"service\" because of \"BSONError\""}
+{"level":"info","message":"OTP sent to +2347036599967: SMba0c8526ef21fc340a5322e1aaee1553"}
+{"level":"error","message":"data and hash arguments required"}
+{"level":"error","message":"data and hash arguments required"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"error","message":"data and hash arguments required"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"error","message":"data and hash arguments required"}
+{"level":"error","message":"data and hash arguments required"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"error","message":"data and hash arguments required"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"error","message":"data and hash arguments required"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"OTP sent to +2347036599967: SM75ce2586e6aeb14240c8366046164eb7"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}

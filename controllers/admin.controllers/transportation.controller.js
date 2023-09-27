@@ -5,6 +5,20 @@ const logger = require('../../logger/logger')
 const createTransportation = async (req, res) => {
     const image = req.file? req.file.path : null;
     const {driver, phone,whatsapp, company, pickuparea,vehicle, pickupblock, area, block, building,} = req.body;
+
+    if(!image){
+        return res.status(400).send({
+            success: false,
+            message: "Image is required"
+        })
+    }
+
+    if(!driver|| !phone || !whatsapp || !company || !vehicle || !pickuparea || !pickupblock || !area || !block || !building){
+        return res.status(400).send({
+            success: false,
+            message: "All fields are required"
+        })
+    }
     try{
         const transportation = await transportationModel.create({
             driver,
@@ -79,6 +93,13 @@ const updateTransportation = async (req, res) => {
         const {id} = req.params;
         const {driver, phone,whatsapp, company,vehicle, pickuparea, pickupblock, area, block, building} = req.body;
         const image = req.file? req.file.path : null;
+
+        if(!driver|| !phone || !whatsapp || !company || !vehicle || !pickuparea || !pickupblock || !area || !block || !building){
+            return res.status(400).send({
+                success: false,
+                message: "All fields are required"
+            })
+        }
 
         const transportation = await transportationModel.findOne({_id: id})
         if(!transportation){

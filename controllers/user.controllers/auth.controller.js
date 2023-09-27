@@ -191,8 +191,10 @@ const verifyOtp = async (req, res) => {
                 message: 'User is not verified',
             });
         }
+        const payload = otp
+        const hashed = user.otp
         
-        const verifyOtp = await utils.verify(otp, user.otp)
+        const verifyOtp = await utils.verify(payload, hashed)
 
         if (verifyOtp === true
             && user.otpExpirationDate > Date.now()) {

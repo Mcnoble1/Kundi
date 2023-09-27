@@ -42,6 +42,14 @@ const updateCustomer = async (req, res) => {
     try{
         const {id} = req.params;
         const { name, phone, languages, area, block } = req.body;
+
+        if(!name || !phone || !languages || !area || !block){
+            return res.status(400).send({
+                success: false,
+                message: "Please provide all the details"
+            })
+        }
+        
         const customer = await userModel.findOne({_id: id})
         if(!customer){
             return res.status(400).send({

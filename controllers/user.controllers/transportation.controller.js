@@ -43,7 +43,14 @@ const getTransportation = async (req, res) => {
 const filterTransportations = async (req, res) => {
     try{
         const {pickupblock,pickuparea,vehicle,destination} = req.body 
-        const transportations = await transportationModel.find({pickupblock: pickupblock, pickuparea: pickuparea, vehicle: vehicle})
+        if(!pickupblock || !pickuparea || !vehicle){
+            return res.status(400).send({
+                success: false,
+                message: "Please provide all details"
+            })
+        }
+
+        const transportations = await transportationModel.find({pickupblock: { $regex: pickupblock, $options: 'i'}, pickuparea: { $regex: pickuparea, $options: 'i'}, vehicle:  { $regex: vehicle, $options: 'i'}  })
         return res.status(200).send({
             success: true,
             message: "Transportations fetched successfully",

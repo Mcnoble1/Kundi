@@ -111,3 +111,5 @@
 {"level":"error","message":"Cannot read properties of undefined (reading 'pull')"}
 {"level":"info","message":"Server is running on PORT 3000"}
 {"level":"info","message":"Connected to MongoDB successfully"}
+{"level":"info","message":"Server is running on PORT 3000"}
+{"level":"info","message":"Connected to MongoDB successfully"}

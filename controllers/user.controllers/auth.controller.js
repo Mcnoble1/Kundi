@@ -104,7 +104,6 @@ const userVerify = async (req, res) => {
         const hashed = user.phoneToken
 
         const verifyOtp = await utils.verify(payload, hashed)
-        console.log(verifyOtp)
 
         if (verifyOtp === true 
             && user.phoneTokenExpirationDate > Date.now()) {

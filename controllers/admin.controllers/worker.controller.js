@@ -144,21 +144,29 @@ const updateWorker = async (req, res) => {
         worker.category = category;
         worker.service.push(service)  
         await worker.save();
-        const categories = await categoryModel.find({ worker: { $in: worker._id } })
-        if(categories){
-            categories.worker.pull(worker._id)
-            await categories.save()
+        const categories = await categoryModel.find({ worker: { $in: worker._id } });
+        if (categories && categories.length > 0) {
+            categories.forEach(async (category) => {
+                if (category && category.worker) {
+                    category.worker.pull(worker._id);
+                    await category.save(); 
+                }
+            });
         }
+
 
         const newCategory = await categoryModel.findById(category)
         newCategory.worker.push(worker._id)
         await newCategory.save()
 
         const services = await serviceModel.find({ worker: { $in: worker._id } })
-        services.forEach(async service => {
-            service.worker.pull(worker._id)
-            await service.save()    
-        })
+        if(services && services.length > 0){
+            services.forEach(async service => {
+                service.worker.pull(worker._id)
+                await service.save()    
+            })
+        }
+        
 
 
         const newService = await serviceModel.find({ _id: { $in: service } })

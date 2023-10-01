@@ -33,7 +33,7 @@ const userSignup = async (req, res) => {
         user.phoneToken = hashedOtp
         user.phoneTokenExpirationDate = otpExpirationDate
         await user.save()
-        utils.sendOTP(otp, phone, res)
+        await utils.sendOTP(otp, phone, res)
 
         return res.status(200).send({
             success: true,

@@ -10,7 +10,7 @@ const client = twilio(accountSid, authToken);
 
 // client.verify.v2
 //   .services(verifySid)
-//   .verifications.create({ to: "+2347036599967", channel: "sms" })
+//   .verifications.create({ to: "+2347038688343", channel: "sms" })
 //   .then((verification) => console.log(verification.status))
 //   .then(() => {
 //     const readline = require("readline").createInterface({
@@ -20,7 +20,7 @@ const client = twilio(accountSid, authToken);
 //     readline.question("Please enter the OTP:", (otpCode) => {
 //       client.verify.v2
 //         .services(verifySid)
-//         .verificationChecks.create({ to: "+2347036599967", code: otpCode })
+//         .verificationChecks.create({ to: "+2347038688343", code: otpCode })
 //         .then((verification_check) => console.log(verification_check.status))
 //         .then(() => readline.close());
 //     });

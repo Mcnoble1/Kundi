@@ -28,7 +28,7 @@ const limiter = rateLimit({
 	max: 100, 
 	standardHeaders: true,
 	legacyHeaders: false, 
-})
+}) 
 app.use(limiter)
 app.use(helmet());
 app.use(cors())

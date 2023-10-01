@@ -1,26 +1,31 @@
 const client = require('./config');
 require('dotenv').config();
+const logger = require('../../logger/logger');
 
 const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
-const logger = require('../../logger/logger');
-const sendOTP = (otp, phone, res) => {
-    
-    client.messages
+const sendOTP = async (otp, phone, res) => {
+    try {
+        const message = await client.messages
         .create({
             body: `Your Kundi OTP is: ${otp}`,
             from: twilioPhoneNumber,
             to: phone,
         })
-        .then((message) => {
-            logger.info(`OTP sent to ${phone}: ${message.sid}`);
+
+        logger.info(`OTP sent to ${phone}: ${message.sid}`);
+        return res.status(200).send({
+            status: "true",
+            message: "OTP sent successfully"
         })
-        .catch((error) => {
-            logger.error('Error sending OTP:', error);
-            return res.status(400).send({
-                status: "false",
-                message: "OTP Engine failed"
-            })
-        });
+
+    }catch(error) {
+        logger.error('Error sending OTP:', error);
+        return res.status(400).send({
+            status: "false",
+            message: "OTP Engine failed"
+        })
+    }
 }
+    
 
 module.exports = sendOTP;

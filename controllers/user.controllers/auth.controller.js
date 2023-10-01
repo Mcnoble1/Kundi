@@ -9,6 +9,14 @@ const userSignup = async (req, res) => {
     try {
         const { name, phone, languages, area, block } = req.body;
 
+        if(!name || !phone || !languages || !area || !block){
+            return res.status(400).send({
+                success: false,
+                message: "Please fill all fields"
+            })
+        }
+
+
         const isPhone = await userModel.findOne({ phone })
         if (isPhone) {
             return res.status(400).send({
@@ -16,28 +24,27 @@ const userSignup = async (req, res) => {
                 message: "User already exists"
             })
         }
-
-
-        const user = await userModel.create({
-            name,
-            phone,
-            languages,
-            area,
-            block
-        })
-
+        
         const otp = generateToken()
         const hashedOtp = await utils.hash(otp)
         const otpExpirationDate = expirationDate()
-
-        user.phoneToken = hashedOtp
-        user.phoneTokenExpirationDate = otpExpirationDate
-        await user.save()
         await utils.sendOTP(otp, phone, res)
+        
+        const user = await userModel.create({
+            name: name,
+            phone: phone,
+            languages: languages,
+            area: area,
+            block: block,
+            phoneToken: hashedOtp,
+            phoneTokenExpirationDate: otpExpirationDate
+        })
+
 
         return res.status(200).send({
             success: true,
-            message: "User created successfully"
+            message: "User created successfully",
+            user: user
         })
     } catch (err) {
         logger.error(err.message)
@@ -51,6 +58,13 @@ const userSignup = async (req, res) => {
 const resendUserVerificationOtp = async (req, res) => {
     try {
         const { phone } = req.body;
+        if(!phone){
+            return res.status(400).send({
+                success: false,
+                message: "Please fill all fields"
+            })
+        }
+
         const user = await userModel.findOne({ phone })
         if (!user) {
             return res.status(400).send({
@@ -63,7 +77,7 @@ const resendUserVerificationOtp = async (req, res) => {
         const hashedOtp = await utils.hash(otp)
         const otpExpirationDate = expirationDate()
         
-        utils.sendOTP(otp, phone, res)
+        await utils.sendOTP(otp, phone, res)
 
         user.phoneToken = hashedOtp
         user.phoneTokenExpirationDate = otpExpirationDate
@@ -85,6 +99,14 @@ const resendUserVerificationOtp = async (req, res) => {
 const userVerify = async (req, res) => {
     try {
         const { phone, otp } = req.body;
+
+        if(!phone || !otp){
+            return res.status(400).send({
+                success: false,
+                message: "Please fill all fields"
+            })
+        }
+
         const user = await userModel.findOne({ phone })
         if (!user) {
             return res.status(400).send({
@@ -93,12 +115,6 @@ const userVerify = async (req, res) => {
             })
         }
 
-        if (!otp) {
-            return res.status(400).send({
-                success: false,
-                message: "input correct OTP"
-            })
-        }
 
         const payload = otp
         const hashed = user.phoneToken
@@ -147,11 +163,13 @@ const userLogin = async (req, res) => {
         const otp = generateToken()
         const hashedOtp = await utils.hash(otp)
         const otpExpirationDate = expirationDate()
+
+        await utils.sendOTP(otp, phone, res)
         
         user.otp = hashedOtp
         user.otpExpirationDate = otpExpirationDate
+
         await user.save()
-        utils.sendOTP(otp, phone, res)
 
         return res.status(200).send({
             success: true,
@@ -168,19 +186,20 @@ const userLogin = async (req, res) => {
 
 const verifyOtp = async (req, res) => {
     try {
-        const { phone, otp } = req.body;   
+        const { phone, otp } = req.body;  
+        
+        if(!phone || !otp){
+            return res.status(400).send({
+                success: false,
+                message: "Please fill all fields"
+            })
+        }
+
         const user = await userModel.findOne({ phone }) 
         if (!user) {
             return res.status(400).send({
                 success: false,
                 message: "User not found"
-            })
-        }
-
-        if (!otp) {
-            return res.status(400).send({
-                success: false,
-                message: "input correct OTP"
             })
         }
 
@@ -204,7 +223,7 @@ const verifyOtp = async (req, res) => {
 
             const body = { _id: user._id, phone: user.phone };
 
-            const accessToken = jwt.sign({ user: body }, process.env.SECRET_KEY, { expiresIn: "1h" });
+            const accessToken = jwt.sign({ user: body }, process.env.SECRET_KEY, { expiresIn: process.env.JWT_LIFETIME });
 
             const refreshToken = jwt.sign({ user: body }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" });
 
@@ -257,7 +276,7 @@ const refreshToken = async (req, res) => {
             }
             else {
                 // Correct token we send a new access token
-                const accessToken = jwt.sign({ user: decoded.user }, process.env.SECRET_KEY, { expiresIn: "1h" });
+                const accessToken = jwt.sign({ user: decoded.user }, process.env.SECRET_KEY, { expiresIn: process.env.JWT_LIFETIME });
 
                 return res.json({ 
                     token: accessToken,

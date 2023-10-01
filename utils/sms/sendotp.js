@@ -13,14 +13,14 @@ const sendOTP = async (otp, phone, res) => {
         })
 
         logger.info(`OTP sent to ${phone}: ${message.sid}`);
-        return res.status(200).send({
+        res.status(200).send({
             status: "true",
             message: "OTP sent successfully"
         })
 
     }catch(error) {
         logger.error('Error sending OTP:', error);
-        return res.status(400).send({
+        res.status(400).send({
             status: "false",
             message: "OTP Engine failed"
         })

@@ -12,6 +12,14 @@ require('dotenv').config()
 const adminSignup = async (req, res) => {
     try{
         const {email, password} = req.body;
+
+        if(!email || !password){
+            return res.status(400).send({
+                success: false,
+                message: "Please fill all fields"
+            })
+        }
+
         const isEmail = await adminModel.findOne({email})
         if(isEmail){
             return res.status(400).send({
@@ -42,6 +50,14 @@ const adminSignup = async (req, res) => {
 const adminLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).send({
+                success: false,
+                message: "Please fill all fields"
+            })
+        }
+        
         const user = await adminModel.findOne({email: email});
 
         if (!user) {

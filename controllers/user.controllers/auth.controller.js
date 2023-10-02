@@ -28,8 +28,14 @@ const userSignup = async (req, res) => {
         const otp = generateToken()
         const hashedOtp = await utils.hash(otp)
         const otpExpirationDate = expirationDate()
-        await utils.sendOTP(otp, phone, res)
+        const sent = await utils.sendOTP(otp, phone, res)
         
+        if(!sent){
+            return res.status(400).send({
+                success: false,
+                message: 'OTP not sent'
+            })
+        }
         const user = await userModel.create({
             name: name,
             phone: phone,
@@ -77,8 +83,10 @@ const resendUserVerificationOtp = async (req, res) => {
         const hashedOtp = await utils.hash(otp)
         const otpExpirationDate = expirationDate()
         
-        await utils.sendOTP(otp, phone, res)
-
+        const sent = await utils.sendOTP(otp, phone, res)
+if(!sent){
+    
+}
         user.phoneToken = hashedOtp
         user.phoneTokenExpirationDate = otpExpirationDate
         await user.save()
@@ -164,8 +172,10 @@ const userLogin = async (req, res) => {
         const hashedOtp = await utils.hash(otp)
         const otpExpirationDate = expirationDate()
 
-        await utils.sendOTP(otp, phone, res)
-        
+        const sent = await utils.sendOTP(otp, phone, res)
+        if(!sent){
+            
+        }
         user.otp = hashedOtp
         user.otpExpirationDate = otpExpirationDate
 

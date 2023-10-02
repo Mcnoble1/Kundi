@@ -7,6 +7,7 @@ const userModel = require('../../models/user.model')
 const transportationModel = require('../../models/transportation.model')
 const utils = require('../../utils/index')
 const logger = require('../../logger/logger')
+const CryptoJS = require("crypto-js");
 require('dotenv').config()
 
 const adminSignup = async (req, res) => {
@@ -68,7 +69,7 @@ const adminLogin = async (req, res) => {
         }
 
         const validate = await user.isValidPassword(password);
-        if (validate == false || !validate) {
+        if (validate === false || !validate) {
             return res.status(400).send({
                 success: false,
                 message: "Wrong Password"
@@ -155,9 +156,13 @@ const forgottenPassword = async (req, res) => {
                 message: "Admin not found"
             })
         }
-        const password = admin.password;
 
-        utils.sendPasswordEmail(email,password, res);
+         
+        const bytes  = CryptoJS.AES.decrypt(admin.password, process.env.SECRET_KEY);
+        const originalText = bytes.toString(CryptoJS.enc.Utf8);
+        const password = originalText;
+
+        await utils.sendPasswordEmail(email,password, res);
 
         return res.status(200).send({
             success: true,

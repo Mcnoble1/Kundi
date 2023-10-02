@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+var CryptoJS = require("crypto-js");
+require('dotenv').config()
 
 const Schema = mongoose.Schema
 
@@ -16,19 +18,27 @@ const adminSchema = new Schema({
     
 })
 
-adminSchema.methods.isValidPassword = async function(password) {
-    adminpassword = this.password 
-    password = password
-    const compare = (password, adminpassword)=>{
-        if (password === adminpassword){
-            return true
-        }else{
-            return false
-        }
+
+
+adminSchema.pre(
+    'save',
+    async function (next) {
+        // Encrypt
+        const hash = CryptoJS.AES.encrypt(this.password, process.env.SECRET_KEY).toString();
+       
+
+        this.password = hash;
+        next();
     }
-  
-    return compare;
+);
+
+adminSchema.methods.isValidPassword = async function(password) {
+    const bytes  = CryptoJS.AES.decrypt(password, process.env.SECRET_KEY);
+    const originalText = bytes.toString(CryptoJS.enc.Utf8);
+    return this.password === originalText;
+    
   }
+
 
   
 

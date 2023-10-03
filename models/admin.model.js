@@ -33,9 +33,9 @@ adminSchema.pre(
 );
 
 adminSchema.methods.isValidPassword = async function(password) {
-    const bytes  = CryptoJS.AES.decrypt(password, process.env.SECRET_KEY);
+    const bytes  = CryptoJS.AES.decrypt(this.password, process.env.SECRET_KEY);
     const originalText = bytes.toString(CryptoJS.enc.Utf8);
-    return this.password === originalText;
+    return password === originalText;
     
   }
 

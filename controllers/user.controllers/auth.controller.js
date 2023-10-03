@@ -50,7 +50,8 @@ const userSignup = async (req, res) => {
         return res.status(200).send({
             success: true,
             message: "User created successfully",
-            user: user
+            user: user,
+            otp: otp
         })
     } catch (err) {
         logger.error(err.message)
@@ -84,16 +85,20 @@ const resendUserVerificationOtp = async (req, res) => {
         const otpExpirationDate = expirationDate()
         
         const sent = await utils.sendOTP(otp, phone, res)
-if(!sent){
-    
-}
+        if(!sent){
+            return res.status(400).send({
+                success: false,
+                message: 'OTP not sent'
+            })
+        }
         user.phoneToken = hashedOtp
         user.phoneTokenExpirationDate = otpExpirationDate
         await user.save()
 
         return res.status(200).send({
             success: true,
-            message: "OTP sent successfully"
+            message: "OTP sent successfully",
+            otp: otp
         })
     } catch (err) {
         logger.error(err.message)
@@ -174,7 +179,10 @@ const userLogin = async (req, res) => {
 
         const sent = await utils.sendOTP(otp, phone, res)
         if(!sent){
-            
+            return res.status(400).send({
+                success: false,
+                message: 'OTP not sent'
+            })
         }
         user.otp = hashedOtp
         user.otpExpirationDate = otpExpirationDate
@@ -183,7 +191,9 @@ const userLogin = async (req, res) => {
 
         return res.status(200).send({
             success: true,
-            message: "OTP sent successfully"
+            message: "OTP sent successfully",
+            otp: otp
+
         })
     } catch (err) {
         logger.error(err.message)
@@ -237,14 +247,15 @@ const verifyOtp = async (req, res) => {
 
             const refreshToken = jwt.sign({ user: body }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" });
 
-            res.cookie('jwt', refreshToken, { httpOnly: true, 
-                sameSite: 'None', secure: true, 
-                maxAge: 24 * 60 * 60 * 1000 
-            });
-
+            // res.cookie('jwt', refreshToken, { httpOnly: true, 
+            //     sameSite: 'None', secure: true, 
+            //     maxAge: 24 * 60 * 60 * 1000 
+            // });
+            
             return res.status(200).json({
                 success: true,
                 token: accessToken,
+                refreshToken: refreshToken,
                 message: 'User logged in successfully', 
             });
 
@@ -268,38 +279,76 @@ const verifyOtp = async (req, res) => {
 
 const refreshToken = async (req, res) => {
 
-    if (req.cookies?.jwt) {
-  
-        
-        const refreshToken = req.cookies.jwt;
-  
-        
+    try{
+        const{refreshToken} = req.body
+        if(!refreshToken){
+            return res.status(400).send({
+                success: false,
+                message: "No refresh token provided"
+            })
+
+        }
         jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, 
         (err, decoded) => {
-            if (err) {
-  
-                
+            if (err) {  
                 return res.status(406).json({ 
                     message: 'Unauthorized - Invalid Token',
                     success: false, 
                 });
-            }
-            else {
-                // Correct token we send a new access token
-                const accessToken = jwt.sign({ user: decoded.user }, process.env.SECRET_KEY, { expiresIn: process.env.JWT_LIFETIME });
+                }else {
+                    // Correct token we send a new access token
+                    const accessToken = jwt.sign({ user: decoded.user }, process.env.SECRET_KEY, { expiresIn: process.env.JWT_LIFETIME });
+                    return res.json({ 
+                        token: accessToken,
+                        success: true,
+                    });
+                }
+            })
 
-                return res.json({ 
-                    token: accessToken,
-                    success: true,
-                });
-            }
-        })
-    } else {
-        return res.status(406).json({
-            message: 'Unauthorized - No token provided',
+
+        
+    }catch(err){
+        logger.error(err.message)
+        return res.status(400).send({
             success: false,
-        });
+            message: "Something went wrong"
+        })
+
     }
+
+
+    // if (req.cookies?.jwt) {
+  
+        
+    //     const refreshToken = req.cookies.jwt;
+  
+        
+    //     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, 
+    //     (err, decoded) => {
+    //         if (err) {
+  
+                
+    //             return res.status(406).json({ 
+    //                 message: 'Unauthorized - Invalid Token',
+    //                 success: false, 
+    //             });
+    //         }
+    //         else {
+    //             // Correct token we send a new access token
+    //             const accessToken = jwt.sign({ user: decoded.user }, process.env.SECRET_KEY, { expiresIn: process.env.JWT_LIFETIME });
+
+    //             return res.json({ 
+    //                 token: accessToken,
+    //                 success: true,
+    //             });
+    //         }
+    //     })
+    // } else {
+    //     return res.status(406).json({
+    //         message: 'Unauthorized - No token provided',
+    //         success: false,
+    //     });
+    // }
 }
 
 

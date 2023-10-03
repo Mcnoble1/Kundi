@@ -11,7 +11,7 @@ const {
 
 adminRouter.post('/signup', adminSignup)
 adminRouter.post('/login', adminLogin)
-adminRouter.post('/refresh',refreshToken)
+adminRouter.get('/refresh',refreshToken)
 adminRouter.post('/forgot-password', forgottenPassword) 
 adminRouter.post('/search',adminAuth,search)
 

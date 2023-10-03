@@ -15,7 +15,7 @@ userRoute.post('/login',userLogin)
 userRoute.post('/resend-otp',resendUserVerificationOtp)
 userRoute.post('/verify',userVerify)
 userRoute.post('/verify-otp',verifyOtp)
-userRoute.get('/refresh',refreshToken)
+userRoute.post('/refresh',refreshToken)
 
 
 

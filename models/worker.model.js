@@ -5,20 +5,20 @@ const Schema = mongoose.Schema;
 const workerSchema = new Schema({
     name: {
         type: String,
-        required: true,
+        
 
     },
     phone: {
         type: String,
-        required: true
+        
     },
     whatsapp: {
         type: String,
 
     },
     age: {
-        type: Number,
-        required: true
+        type: String,
+        
     },
     gender: {
         type: String,
@@ -26,7 +26,7 @@ const workerSchema = new Schema({
     },
     languages: [{
         type: String,
-        required: true
+        
     }],
     nationality: {
         type: String,
@@ -50,15 +50,15 @@ const workerSchema = new Schema({
     },
     familyInKuwait : {
         type: String,
-        enum: ['yes', 'no'],
+        enum: ['Yes', 'No'],
     },
     petFriendly: {
         type: String,
-        enum: ['yes', 'no'],
+        enum: ['Yes', 'No'],
     },
     lengthOfService: {
         type: String,
-        enum: ['full time', 'part time'],
+        enum: ['Full Time', 'Part Time'],
     },
     service: [{
         type: Schema.Types.ObjectId,

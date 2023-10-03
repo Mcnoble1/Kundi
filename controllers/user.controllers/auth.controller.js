@@ -28,14 +28,9 @@ const userSignup = async (req, res) => {
         const otp = generateToken()
         const hashedOtp = await utils.hash(otp)
         const otpExpirationDate = expirationDate()
-        const sent = await utils.sendOTP(otp, phone, res)
+
+        await utils.sendOTP(otp, phone, res)
         
-        if(!sent){
-            return res.status(400).send({
-                success: false,
-                message: 'OTP not sent'
-            })
-        }
         const user = await userModel.create({
             name: name,
             phone: phone,
@@ -50,8 +45,7 @@ const userSignup = async (req, res) => {
         return res.status(200).send({
             success: true,
             message: "User created successfully",
-            user: user,
-            otp: otp
+            user: user
         })
     } catch (err) {
         logger.error(err.message)
@@ -84,13 +78,8 @@ const resendUserVerificationOtp = async (req, res) => {
         const hashedOtp = await utils.hash(otp)
         const otpExpirationDate = expirationDate()
         
-        const sent = await utils.sendOTP(otp, phone, res)
-        if(!sent){
-            return res.status(400).send({
-                success: false,
-                message: 'OTP not sent'
-            })
-        }
+        await utils.sendOTP(otp, phone, res)
+        
         user.phoneToken = hashedOtp
         user.phoneTokenExpirationDate = otpExpirationDate
         await user.save()
@@ -98,7 +87,6 @@ const resendUserVerificationOtp = async (req, res) => {
         return res.status(200).send({
             success: true,
             message: "OTP sent successfully",
-            otp: otp
         })
     } catch (err) {
         logger.error(err.message)
@@ -177,13 +165,8 @@ const userLogin = async (req, res) => {
         const hashedOtp = await utils.hash(otp)
         const otpExpirationDate = expirationDate()
 
-        const sent = await utils.sendOTP(otp, phone, res)
-        if(!sent){
-            return res.status(400).send({
-                success: false,
-                message: 'OTP not sent'
-            })
-        }
+        await utils.sendOTP(otp, phone, res)
+        
         user.otp = hashedOtp
         user.otpExpirationDate = otpExpirationDate
 

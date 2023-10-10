@@ -239,6 +239,7 @@ const verifyOtp = async (req, res) => {
                 success: true,
                 token: accessToken,
                 refreshToken: refreshToken,
+                user: user,
                 message: 'User logged in successfully', 
             });
 

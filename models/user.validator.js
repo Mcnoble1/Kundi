@@ -3,10 +3,10 @@ const Joi = require('joi')
 const userValidator = Joi.object({
 
     name: Joi.string().min(3).max(30).required().messages({
-        'string.base': 'Fullname must be a string',
-        'string.empty': 'Fullname is required',
-        'string.min': 'Fullname must be at least 3 characters long',
-        'string.max': 'Fullname must be less than or equal to 30 characters long',
+        'string.base': 'Name must be a string',
+        'string.empty': 'Name is required',
+        'string.min': 'Name must be at least 3 characters long',
+        'string.max': 'Name must be less than or equal to 30 characters long',
     }),
 
     phone: Joi.string().regex(/^\+?[1-9]\d{1,14}$/).required().messages({
@@ -25,8 +25,8 @@ const userValidator = Joi.object({
         'string.empty': 'Block is required',
     }),
 
-    languages: Joi.string().required().messages({    
-        'string.base': 'Languages must be an array',
+    languages: Joi.array().required().messages({    
+        'array.base': 'Languages must be an array',
         'array.empty': 'Languages is required',
     }),
 })

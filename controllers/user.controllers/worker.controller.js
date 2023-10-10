@@ -5,7 +5,7 @@ const logger = require('../../logger/logger')
 
 const getWorkers = async (req, res) => {
     try{
-        const workers = await workerModel.find()
+        const workers = await workerModel.find().populate('category').populate('service')
         return res.status(200).send({
             success: true,
             message: "Workers fetched successfully",
@@ -24,7 +24,7 @@ const getWorkers = async (req, res) => {
 const filterWorkers = async (req, res) => {
     try{
         const {category, service, lengthOfService} = req.body;
-        const workers = await workerModel.find({category: category, service:{$in: service}, lengthOfService: lengthOfService})
+        const workers = await workerModel.find({category: category, service:{$in: service}, lengthOfService: lengthOfService}).populate('category').populate('service')
         return res.status(200).send({
             success: true,
             message: "Workers fetched successfully",
@@ -42,7 +42,7 @@ const filterWorkers = async (req, res) => {
 const getWorker = async (req, res) => {
     try{
         const {id} = req.params
-        const worker = await workerModel.findById(id)
+        const worker = await workerModel.findById(id).populate('category').populate('service')
         return res.status(200).send({
             success: true,
             message: "Worker fetched successfully",

@@ -12,7 +12,7 @@ const sendOTP = async (otp, phone, res) => {
             to: phone,
         })
 
-        logger.info(`OTP sent to ${phone}: ${message.sid}`);
+        // logger.info(`OTP sent to ${phone}: ${message.sid}`);
 
     }catch(error) {
         logger.error('Error sending OTP:', error);

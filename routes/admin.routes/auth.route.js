@@ -1,5 +1,6 @@
 const express = require('express');
 require('dotenv').config();
+const {checkAdminToken} = require('../../middleware/checkToken')
 const passport = require('passport');
 const adminAuth = passport.authenticate('admin-jwt', { session: false });
 
@@ -10,6 +11,7 @@ const {
 } = require('../../controllers/admin.controllers/admin.controller')
 
 adminRouter.post('/signup', adminSignup)
+adminRouter.get('/login',checkAdminToken)
 adminRouter.post('/login', adminLogin)
 adminRouter.get('/refresh',refreshToken)
 adminRouter.post('/forgot-password', forgottenPassword) 

@@ -35,7 +35,7 @@ passport.use("admin-jwt",
         adminOptions,
         async (token, done) => {
             try {
-                return done(null, token.user);
+                return done(null, token.admin);
             } catch (error) {
                 done(error);
             }

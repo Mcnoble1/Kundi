@@ -59,16 +59,16 @@ const adminLogin = async (req, res) => {
             })
         }
         
-        const user = await adminModel.findOne({email: email});
+        const admin = await adminModel.findOne({email: email});
 
-        if (!user) {
+        if (!admin) {
             return res.status(400).send({
                 success: false,
-                message: "User not found"
+                message: "admin not found"
             })
         }
 
-        const validate = await user.isValidPassword(password);
+        const validate = await admin.isValidPassword(password);
         if (validate === false || !validate) {
             return res.status(400).send({
                 success: false,
@@ -76,10 +76,10 @@ const adminLogin = async (req, res) => {
             })  
         }
 
-        const body = { _id: user._id, email: user.email };
+        const body = { _id: admin._id, email: admin.email };
             
-        const accessToken = jwt.sign({ user: body }, process.env.ADMIN_SECRET_KEY, { expiresIn: "1d" });
-        const refreshToken = jwt.sign({user: body}, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" });
+        const accessToken = jwt.sign({ admin: body }, process.env.ADMIN_SECRET_KEY, { expiresIn: "1d" });
+        const refreshToken = jwt.sign({admin: body}, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" });
 
         res.cookie('jwt', refreshToken, { httpOnly: true, 
             sameSite: 'None', secure: true, 
@@ -122,7 +122,7 @@ const refreshToken = async (req, res) => {
             }
             else {
                 // Correct token we send a new access token
-                const accessToken = jwt.sign({ user: decoded.user }, process.env.ADMIN_SECRET_KEY, { expiresIn: "1d" });
+                const accessToken = jwt.sign({ admin: decoded.admin }, process.env.ADMIN_SECRET_KEY, { expiresIn: "1d" });
 
                 return res.json({ 
                     token: accessToken,
@@ -264,11 +264,6 @@ const performSearch = async (search)=>{
     result.push(result5)
 
     return result;
-    
-
-    // return {
-    //     ...result1,...result2,...result3,...result4,...result5
-    // }
 
 }
 

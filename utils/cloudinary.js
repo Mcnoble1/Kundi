@@ -1,7 +1,7 @@
 const cloudinary = require("cloudinary").v2;
 
 cloudinary.config({
-    cloud_name: "goldenjamex",
+    cloud_name: process.env.CLOUDNARY_NAME,
     api_key: process.env.CLOUDINARY_KEY,
     api_secret: process.env.CLOUDINARY_SECRET,
     secure: true,
@@ -18,7 +18,7 @@ const uploadImage = async (image, id) => {
 };
 
 const deleteImage = async (id) => {
-    const result = await cloudinary.uploader.destroy(`kundi/${id}/photo`);
+    const result = await cloudinary.uploader.destroy(`/photo/${id}`);
     return result;
 };
 

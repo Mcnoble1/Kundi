@@ -121,7 +121,7 @@ const refreshToken = async (req, res) => {
                 });
             }
             else {
-                // Correct token we send a new access token
+                
                 const accessToken = jwt.sign({ admin: decoded.admin }, process.env.ADMIN_SECRET_KEY, { expiresIn: "1d" });
 
                 return res.json({ 
